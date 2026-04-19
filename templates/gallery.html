@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="hearts">
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">💞</div>
+    <div class="heart">💘</div>
+</div>
+<h1 style="text-align:center;">Our Memories 📸</h1>
+
+<div class="gallery">
+<img src="{{ url_for('static', filename='images/img1.png') }}">
+<img src="{{ url_for('static', filename='images/img2.png') }}">
+<img src="{{ url_for('static', filename='images/img3.png') }}">
+<img src="{{ url_for('static', filename='images/img4.png') }}">
+</div>
+
+<div style="text-align:center;">
+<a href="/timeline"><button>Next ➡️</button></a>
+</div>
+<audio id="bg-music" loop>
+    <source src="{{ url_for('static', filename='music.mp3') }}">
+</audio>
+<script>
+document.addEventListener("click", function(e){
+    let heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.style.position = "absolute";
+    heart.style.left = e.pageX + "px";
+    heart.style.top = e.pageY + "px";
+    heart.style.fontSize = "20px";
+    heart.style.animation = "floatUp 1s ease-out";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),1000);
+});
+window.onload = function(){
+    let music = document.getElementById("bg-music");
+
+    if(localStorage.getItem("musicPlaying") === "true"){
+        music.volume = 0.3;
+        music.play().catch(()=>{});
+    }
+}
+</script>
+</body>
+</html>

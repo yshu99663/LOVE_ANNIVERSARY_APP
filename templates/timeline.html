@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Floating hearts -->
+<div class="hearts">
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">💞</div>
+    <div class="heart">💘</div>
+</div>
+
+<div class="container">
+<div class="card">
+
+<h1>Our Journey ⏳</h1>
+
+<div class="timeline">
+<div class="step">💖 Our First Meeting - [MAY-25-2021 ]</div>
+<div class="step">😍 Our Important Days - [JULY-31-2021] and [MAY-07-2022]</div>
+<div class="step">💕 The day we became “us” - [APRIL-20-2021]</div>
+<div class="step">💕 Our Timings - [6:16 & 9:49]</div>
+<div class="step">🎉 6 years later… still choosing you ❤️</div>
+
+</div>
+
+<button onclick="next()">Next ➡️</button>
+
+</div>
+</div>
+<audio id="bg-music" loop>
+    <source src="{{ url_for('static', filename='music.mp3') }}">
+</audio>
+<script>
+function next(){
+    window.location.href="/letters";
+}
+window.onload = function(){
+    let music = document.getElementById("bg-music");
+
+    if(localStorage.getItem("musicPlaying") === "true"){
+        music.volume = 0.3;
+        music.play().catch(()=>{});
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="hearts">
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">💞</div>
+    <div class="heart">💘</div>
+</div>
+<div class="container">
+<div class="card">
+
+<h1>I Love You Forever baby❤️</h1>
+
+
+<p>
+These 6 years are not just memories…  
+they are my life’s most beautiful story 💖  
+<br><br>
+And you are my forever ❤️
+</p>
+<button onclick="finalMsg()">One Last Click 💌</button>
+
+</div>
+</div>
+<audio id="bg-music" loop>
+    <source src="{{ url_for('static', filename='music.mp3') }}">
+</audio>
+<script>
+
+function finalMsg(){
+
+    let answer = confirm("Stay with me forever? ❤️🥺");
+
+    if(answer){
+        showLove();
+    } else {
+        showSad();
+    }
+}
+
+/* 💖 HAPPY ANIMATION */
+function showLove(){
+    document.body.innerHTML = `
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;color:white;text-align:center;">
+        <h1>Yayyy 💖😍</h1>
+        <p>You are mine forever 😘</p>
+        <div class="emoji">💋 💖 💕 😘 💞</div>
+    </div>
+    `;
+
+    createFloating("💖");
+    createFloating("💋");
+}
+
+/* 🥺 SAD ANIMATION */
+function showSad(){
+    document.body.innerHTML = `
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;color:white;text-align:center;">
+        <h1>🥺</h1>
+        <p>Don’t say no… I’ll wait for your yes 💔</p>
+        <div class="emoji">😢 💔 😞</div>
+    </div>
+    `;
+
+    createFloating("💔");
+}
+
+/* 💫 FLOATING EMOJIS */
+function createFloating(emoji){
+    setInterval(()=>{
+        let el = document.createElement("div");
+        el.innerHTML = emoji;
+        el.style.position = "absolute";
+        el.style.left = Math.random()*100 + "vw";
+        el.style.top = "100vh";
+        el.style.fontSize = "25px";
+        el.style.animation = "floatUp 4s linear";
+        document.body.appendChild(el);
+
+        setTimeout(()=>el.remove(),4000);
+    }, 300);
+}
+window.onload = function(){
+    let music = document.getElementById("bg-music");
+
+    if(localStorage.getItem("musicPlaying") === "true"){
+        music.volume = 0.3;
+        music.play().catch(()=>{});
+    }
+}
+</script>
+</body>
+</html>

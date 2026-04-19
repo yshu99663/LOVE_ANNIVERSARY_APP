@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- hearts -->
+<div class="hearts">
+<div class="heart">💖</div><div class="heart">💗</div>
+<div class="heart">💕</div><div class="heart">💞</div>
+<div class="heart">💘</div>
+</div>
+
+<div class="container">
+<div class="card">
+
+<h1>How well do you know us? 😄</h1>
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+<p id="result"></p>
+<p id="score"></p>
+
+</div>
+</div>
+<audio id="bg-music" loop>
+    <source src="{{ url_for('static', filename='music.mp3') }}">
+</audio>
+<!-- 🎉 Confetti library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+let quiz = [
+{
+    q: "Who said 'I love you' first? ❤️",
+    options: ["You 😜", "Me 😌"],
+    answer: 1
+},
+{
+    q: "Where did we meet secretly? 🥺",
+    options: ["Behind my house 💖", "At college 😄"],
+    answer: 0
+},
+{
+    q: "What games did we play together? 🎮",
+    options: ["Cricket only 😅", "Shuttle, chess & carrom ❤️"],
+    answer: 1
+},
+{
+    q: "What do I call you? 😘",
+    options: ["Bro 😭", "Ladduga / Bangaram ❤️"],
+    answer: 1
+},
+{
+    q: "Even after fights… what did we do? 💕",
+    options: ["Stopped talking 😒", "Stayed together ❤️"],
+    answer: 1
+},
+{
+    q: "What is our secret place called? 💌",
+    options: ["Secret spot ❤️", "No idea 😅"],
+    answer: 0
+},
+{
+    q: "What am I to you 💌",
+    options: ["Your wife ❤️", "No idea 😅"],
+    answer: 0
+},
+{
+    q: "Am I beautiful 💌",
+    options: ["So beautiful ❤️", "Ugly 😅"],
+    answer: 0
+},
+{
+    q: "Are you proud of me 💌",
+    options: ["Not really 😅", "Yes ❤️"],
+    answer: 1
+}
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion(){
+    let q = quiz[current];
+    document.getElementById("question").innerText = q.q;
+
+    let optionsHTML = "";
+    q.options.forEach((opt, i)=>{
+        optionsHTML += `<button onclick="check(${i})">${opt}</button><br><br>`;
+    });
+
+    document.getElementById("options").innerHTML = optionsHTML;
+    document.getElementById("score").innerText = `Score: ${score}/${quiz.length} ❤️`;
+}
+
+function check(i){
+    if(i === quiz[current].answer){
+        score++;
+        document.getElementById("result").innerText = "Correct 😍💖";
+
+        current++;
+
+        if(current < quiz.length){
+            setTimeout(()=>{
+                document.getElementById("result").innerText = "";
+                loadQuestion();
+            }, 1000);
+        } else {
+            showFinal();
+        }
+
+    } else {
+        // 😂 funny wrong animation
+        document.getElementById("result").innerText = "Wrong 😜 Try again!";
+        shake();
+    }
+}
+
+function shake(){
+    let card = document.querySelector(".card");
+    card.style.animation = "shake 0.3s";
+    setTimeout(()=>{ card.style.animation = ""; }, 300);
+}
+
+function showFinal(){
+    document.getElementById("question").innerText = "You finished the quiz! 💖";
+    document.getElementById("options").innerHTML = "";
+    document.getElementById("result").innerText = `Final Score: ${score}/${quiz.length} ❤️`;
+
+    // 🎉 Confetti
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+
+    // go to final page after 3 sec
+    setTimeout(()=>{
+        window.location.href="/final";
+    }, 3000);
+}
+
+loadQuestion();
+window.onload = function(){
+    let music = document.getElementById("bg-music");
+
+    if(localStorage.getItem("musicPlaying") === "true"){
+        music.volume = 0.3;
+        music.play().catch(()=>{});
+    }
+}
+</script>
+
+</body>
+</html>

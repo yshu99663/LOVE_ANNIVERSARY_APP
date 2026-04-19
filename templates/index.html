@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anniversary ❤️</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Floating hearts -->
+<div class="hearts">
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">💞</div>
+    <div class="heart">💘</div>
+</div>
+
+<div class="container">
+<div class="card">
+
+<h1>Happy 6th Anniversary Ladduga ❤️</h1>
+<h2>To the one who owns my heart 💖</h2>
+<h2>My Love, ALEEM</h2>
+
+<p>
+Every moment with you feels like magic ✨ <br>
+And I would choose you again and again ❤️
+</p>
+
+<p>You are my favorite part of life Husband Garu 💖</p>
+
+<a href="/gallery" style="text-decoration:none;">
+    <button type="button">Start Our Journey 💌</button>
+</a>
+
+</div>
+</div>
+
+<!-- 🎵 AUDIO -->
+<audio id="bg-music" loop>
+    <source src="{{ url_for('static', filename='music.mp3') }}">
+</audio>
+
+<script>
+function goNext(){
+    // Try playing music (optional)
+    let music = document.getElementById("bg-music");
+    if(music){
+        music.volume = 0.3;
+        music.play().catch(()=>{});
+    }
+
+    // ✅ DIRECT NAVIGATION (no delay, no bug)
+    window.location.href = "/gallery";
+}
+
+// 💖 floating hearts
+document.addEventListener("click", function(e){
+    let heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.style.position = "absolute";
+    heart.style.left = e.pageX + "px";
+    heart.style.top = e.pageY + "px";
+    heart.style.fontSize = "20px";
+    heart.style.animation = "floatUp 1s ease-out";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),1000);
+});
+</script>
+
+</body>
+</html>

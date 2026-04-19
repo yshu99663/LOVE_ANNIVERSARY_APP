@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Floating hearts -->
+<div class="hearts">
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">💞</div>
+    <div class="heart">💘</div>
+</div>
+
+<div class="container">
+<div class="card">
+
+<h1>Letters I Never Stopped Feeling For You 💌</h1>
+<p style="opacity:0.7;">Tap each letter… ❤️</p>
+
+<div class="letters">
+
+    <div class="message" onclick="show(this)">💌 Our Beginning</div>
+    <p class="hidden">
+        You used to wait for me behind my house… 🥺  
+        We met hundreds of times there…  
+        hiding our love letters in our secret place 💖
+    </p>
+
+    <div class="message" onclick="show(this)">💖 Our Moments</div>
+    <p class="hidden">
+        You waited for me like anything…  
+        We played shuttle, chess, and carrom together 🥰  
+        You used to look at me even in front of your family…  
+        Every moment with you felt magical ✨
+    </p>
+
+    <div class="message" onclick="show(this)">💔 Our Fights</div>
+    <p class="hidden">
+        We fought so many times…  
+        but still, we chose each other again and again ❤️  
+        That’s what makes us strong 💖
+    </p>
+
+    <div class="message" onclick="show(this)">💞 My Feelings</div>
+    <p class="hidden">
+        I am really happy to have you in my life 🥹  
+        I am so lucky to have my man 💖  
+        I want you to be mine forever…  
+        and I am only yours ❤️
+    </p>
+
+    <div class="message" onclick="show(this)">💕 My Love For You</div>
+    <p class="hidden">
+        My ladduga 💖  
+        My husband garu 😘  
+        Oye… my bangaram ❤️  
+        You are my everything 🥺
+    </p>
+
+</div>
+
+<button onclick="next()">Next ➡️</button>
+
+</div>
+</div>
+<audio id="bg-music" loop>
+    <source src="{{ url_for('static', filename='music.mp3') }}">
+</audio>window.onload = function(){
+    let music = document.getElementById("bg-music");
+
+    if(localStorage.getItem("musicPlaying") === "true"){
+        music.volume = 0.3;
+        music.play().catch(()=>{});
+    }
+}
+<script>
+function show(el){
+    let text = el.nextElementSibling;
+    text.classList.toggle("hidden");
+}
+
+function next(){
+    window.location.href="/quiz";
+}
+window.onload = function(){
+    let music = document.getElementById("bg-music");
+
+    if(localStorage.getItem("musicPlaying") === "true"){
+        music.volume = 0.3;
+        music.play().catch(()=>{});
+    }
+}
+</script>
+
+</body>
+</html>
